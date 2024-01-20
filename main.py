@@ -1,4 +1,4 @@
-'''Program for registering cars and their drivers.'''
+"""Program for registering cars and their drivers."""
 from pathlib import Path
 
 
@@ -17,3 +17,47 @@ def read_or_create_file() -> dict:
         file.close()
     return cars
 
+
+def parking() -> None:
+    """registering cars and their drivers"""
+    cars = read_or_create_file()
+    while True:
+        command = input(
+            "1-Add\n"
+            "2-Delete\n"
+            "3-View\n"
+            "4-Change\n"
+            "5-Write to file\n"
+            "Enter the command: "
+        )
+        if command == "1":
+            owner = input("Enter owner name: ")
+            if cars.get(owner):
+                print(
+                    f"The owner's car with the name {owner} is already in the parking lot."
+                )
+                continue
+            car = input("Enter your car make:")
+            cars[owner] = car
+
+        elif command == "2":
+            owner = input("Enter owner name: ")
+            if cars.get(owner):
+                cars.pop(owner)
+                print(f"{owner} left")
+
+            else:
+                print(f"No owner named {owner} was found")
+
+        elif command == "3":
+            for owner, car in cars.items():
+                print(f"{owner}-{car}")
+                
+        elif command == "4":
+            owner = input("Enter owner name: ")
+            if cars.get(owner):
+                car = input("Enter your car make: ")
+                cars[owner] = car
+            else:
+                print(f"No owner named {owner} was found")
+                

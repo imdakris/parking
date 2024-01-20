@@ -18,6 +18,13 @@ def read_or_create_file() -> dict:
     return cars
 
 
+def write_file(cars: dict) -> None:
+    """Updates information about cars and drivers in a file"""
+    with open("parking.txt", "w", encoding="utf-8") as file:
+        for name, car in cars.items():
+            file.writelines(f"{name}:{car}\n")
+
+
 def parking() -> None:
     """registering cars and their drivers"""
     cars = read_or_create_file()
@@ -37,7 +44,7 @@ def parking() -> None:
                     f"The owner's car with the name {owner} is already in the parking lot."
                 )
                 continue
-            car = input("Enter your car make:")
+            car = input("Enter your car make: ")
             cars[owner] = car
 
         elif command == "2":
@@ -52,7 +59,7 @@ def parking() -> None:
         elif command == "3":
             for owner, car in cars.items():
                 print(f"{owner}-{car}")
-                
+
         elif command == "4":
             owner = input("Enter owner name: ")
             if cars.get(owner):
@@ -60,4 +67,10 @@ def parking() -> None:
                 cars[owner] = car
             else:
                 print(f"No owner named {owner} was found")
-                
+
+        elif command == "5":
+            write_file(cars)
+            print("Data recorded")
+
+
+parking()
